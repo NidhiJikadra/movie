@@ -8,11 +8,11 @@ const signup = async(req,res)=>{
     let data = await Users.findOne({email:req.body.email})
 
     if(data){
-        return res.status(201).send({username:"newuser"})
+        return res.status(201).send(data)
     }
     else{
         let newuser = await Users.create(req.body)
-        return res.status(201).send({username:"newuser"})
+        return res.status(201).send(newuser)
     }
 }
 
