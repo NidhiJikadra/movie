@@ -17,10 +17,12 @@ const updatedmovie = async(req,res)=>{
 }
 
 const rating = async(req,res)=>{
-    let data = await Moviemodel.findById(req.params.id)
-    if (data){
-       let movie = await Moviemodel.findByIdAndUpdate(req.params.id,req.body)
-       res.send({movie})
+    let {id} = req.params
+    let data = await Moviemodel.findById(id)
+    if(data){
+       data.ratings.push({value:req.body.rating})
+       await data.save()
+       res.send(data)
     }
     else{
         res.send({error:"movie not found"})
@@ -28,10 +30,12 @@ const rating = async(req,res)=>{
 }
 
 const comment = async(req,res)=>{
-    let data = await Moviemodel.findById(req.params.id)
-    if (data){
-       let movie = await Moviemodel.findByIdAndUpdate(req.params.id,req.body)
-       res.send({movie})
+    let {id} = req.params
+    let data = await Moviemodel.findById(id)
+    if(data){
+       data.comments.push({text:req.body.comment})
+       await data.save()
+       res.send(data)
     }
     else{
         res.send({error:"movie not found"})
