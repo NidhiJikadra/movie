@@ -33,7 +33,7 @@ const comment = async(req,res)=>{
     let {id} = req.params
     let data = await Moviemodel.findById(id)
     if(data){
-       data.comments.push({text:req.body.comment})
+       data.comments.push(req.body)
        await data.save()
        res.send(data)
     }
